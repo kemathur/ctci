@@ -2,12 +2,15 @@ package com.keshav.ctci.trees;
 
 import com.keshav.ctci.queue.Queue;
 
-import javax.xml.soap.Node;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class NodeAL {
+
+    public int getVal() {
+        return val;
+    }
 
     private int val;
     private List<NodeAL> children;
@@ -40,7 +43,11 @@ public class NodeAL {
     public boolean visited() {
         return visited;
     }
-     
+
+    public void markVisited() {
+        visited = true;
+    }
+
     public void resetVisited() {
         this.visited = false;
     }
@@ -95,6 +102,7 @@ public class NodeAL {
         node.insert(node1);
 
         System.out.println(node);
-        node.DFS();
+//        node.DFS();
+        node.BFS();
     }
 }
