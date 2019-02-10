@@ -43,6 +43,10 @@ public class BST {
         root.postTraverse();
     }
 
+    public BSTNode inOrderSuccessor() {
+        return root.inOrderSuccessor();
+    }
+
 
     public static void main(String args[]) {
         BST tr = new BST();

@@ -80,7 +80,7 @@ public class BTNode {
         return getLists(lists);
     }
 
-
+    /*Chapter 04 Q3*/
     private List<List<BTNode>> getLists(List<List<BTNode>> lists) {
         List<BTNode> list = new ArrayList();
         if (lists.size() == 0) {
@@ -101,6 +101,54 @@ public class BTNode {
         lists.add(list);
         return getLists(lists);
     }
+
+
+    /* Chapter 04 Q4  
+       * Usage: node.banaced()
+    */
+    public boolean balanced() {
+        return isBalanced(this);
+    }
+
+    private static boolean isBalanced(BTNode root) {
+        if (root == null) return true;
+
+        if(isBalanced(root.getLeft()) && isBalanced(root.getRight())) {
+            if(Math.abs(height(root.getLeft()) - height(root.getRight())) <= 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static int height(BTNode root) {
+        if (root == null) return 0;
+
+        return Math.max(height(root.getLeft()), height(root.getRight())) + 1;
+    }
+
+    /*
+      * Chapter 04 Q5
+    */
+    public boolean isBST() {
+        return checkBST(this, null, null);
+    }
+
+    private static boolean checkBST(BTNode root, Integer min, Integer max) {
+        if (root ==null) return true;
+
+        if (min!=null && root.getVal() <= min) {
+            return false;
+        }
+
+        if (max!=null && root.getVal() > max) {
+            return false;
+        }
+        // Branch left
+        return checkBST(root.getLeft(), min, root.getVal()) &&
+        checkBST(root.getRight(), root.getVal(), max);
+    }
+
 
     public int getVal() {
         return val;
@@ -124,16 +172,18 @@ public class BTNode {
     }
 
     public static void main(String args[]) {
-        BTNode node = new BTNode(3);
+        BTNode node = new BTNode(30);
 //        node.insertLeft(5);
-        node.insertRight(1);
-        BTNode leftSubTree = new BTNode(4);
+        node.insertRight(111);
+        BTNode leftSubTree = new BTNode(23);
         leftSubTree.insertLeft(12);
-        leftSubTree.insertRight(-100);
+        leftSubTree.insertRight(27);
         node.setLeft(leftSubTree);
 //        System.out.println(tr);
         System.out.println(node);
         System.out.println(node.getDepthLists());
+        System.out.println(node.balanced());
+        System.out.println(node.isBST());
     }
 
 }

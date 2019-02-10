@@ -59,6 +59,10 @@ public class BinaryTree {
                 '}';
     }
 
+    public boolean balanced() {
+        return root.balanced();
+    }
+
     public static void main(String args[]) {
         BinaryTree tr = new BinaryTree(10);
         tr.insertRight(13);
