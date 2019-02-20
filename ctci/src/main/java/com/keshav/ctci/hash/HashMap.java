@@ -1,6 +1,6 @@
 package com.keshav.ctci.hash;
 
-import com.keshav.ctci.linkedlist.LinkedList;
+import com.keshav.ctci.list.LinkedList;
 import com.keshav.ctci.util.KVPair;
 
 import java.util.ArrayList;

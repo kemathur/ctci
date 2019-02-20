@@ -1,4 +1,4 @@
-package com.keshav.ctci.linkedlist;
+package com.keshav.ctci.list;
 
 
 /*

@@ -1,6 +1,6 @@
 package com.keshav.ctci.queue;
 
-import com.keshav.ctci.linkedlist.LLNode;
+import com.keshav.ctci.list.LLNode;
 
 /*
 Queue implemented using a linkedlist
