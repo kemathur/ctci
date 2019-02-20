@@ -56,9 +56,6 @@ public class HashMap<K, V> {
                 ", length=" + length +
                 '}';
     }
-//    public String[] getKeys() {
-//
-//    }
 
 
     public static void main(String args[]){
