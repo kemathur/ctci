@@ -3,7 +3,7 @@ package com.keshav.ctci.queue;
 import com.keshav.ctci.linkedlist.LLNode;
 
 /*
-
+Queue implemented using a linkedlist
 insert(): back of queue
 front():  return front node
 dequeue(): return front node and remove that from top of queue
@@ -15,7 +15,7 @@ public class Queue<T> {
     private LLNode<T> tail;
     private int size=0;
 
-    
+
     public Queue() {}
 
     public void insert(T val) {

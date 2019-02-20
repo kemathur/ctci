@@ -18,4 +18,11 @@ public class LLNode<T> {
         return val;
     }
 
+    @Override
+    public String toString() {
+        return "LLNode{" +
+                "val=" + val +
+                ", next=" + next +
+                '}';
+    }
 }
