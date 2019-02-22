@@ -1,15 +1,13 @@
 package com.keshav.ctci.hash;
 
+import com.keshav.ctci.list.ArrayList;
 import com.keshav.ctci.list.LinkedList;
 import com.keshav.ctci.util.KVPair;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class HashMap<K, V> {
 
-    private List<LinkedList<KVPair<K,V>>> data;
+    private ArrayList<LinkedList<KVPair<K,V>>> data;
     private  int length;
     int size;
     private static int DEFAULT_LENGTH = 100;

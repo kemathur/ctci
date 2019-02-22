@@ -48,6 +48,10 @@ public class ArrayList<T> {
         return size;
     }
 
+    Object[] getData() {
+        return data;
+    }
+
     @Override
     public String toString() {
         return "ArrayList{" +
