@@ -3,37 +3,33 @@ package com.keshav.ctci.list;
 
 import java.util.Iterator;
 
-public class LinkedList<T> implements Iterable<T>{
+public class DoubleLinkedList<T> implements Iterable<T>{
 
-    private LLNode<T> head;
-    private LLNode<T> tail;
+    private DoubleLLNode<T> head;
+    private DoubleLLNode<T> tail;
     private int size;
 
-    public LinkedList() {}
-
-    public LinkedList(LLNode<T> head, LLNode<T> tail, int size) {
-        this.head = head;
-        this.tail = tail;
-        this.size = size;
-    }
+    public DoubleLinkedList() {}
 
     public void add(T data) {
         if (data == null) return;
         if (tail==null) {
-            head = new LLNode<T>(data);
+            head = new DoubleLLNode<T>(data);
             tail = head;
             return;
         }
 
-        LLNode<T> d = new LLNode<T>(data);
+        DoubleLLNode<T> d = new DoubleLLNode<T>(data);
         tail.next = d;
+        d.prev = tail;
         tail = d;
     }
+
 
     public T get(int index) {
         if(index >= size) return null;
 
-        LLNode<T> pointer = head;
+        DoubleLLNode<T> pointer = head;
         int i=0;
         while(pointer!=null) {
             if(i==index)
@@ -44,20 +40,13 @@ public class LinkedList<T> implements Iterable<T>{
         return null;
     }
 
-    public LLNode<T> head() {
-        return head;
-    }
-
-    public LLNode<T> tail() {
-        return tail;
-    }
 
     public Object[] toArray() {
         if (size == 0) return null;
         Object[] arr = new Object[size];
 
         int i=0;
-        LLNode<T> pointer = head;
+        DoubleLLNode<T> pointer = head;
         while(pointer!=null) {
             arr[i] = pointer.val();
             pointer = pointer.next;
@@ -69,10 +58,10 @@ public class LinkedList<T> implements Iterable<T>{
 
     public class LLIterator<X> implements Iterator<X> {
 
-        LinkedList<X> parent;
-        LLNode<X> pointer;
+        DoubleLinkedList<X> parent;
+        DoubleLLNode<X> pointer;
 
-        public LLIterator(LinkedList<X> parent) {
+        public LLIterator(DoubleLinkedList<X> parent) {
             this.parent = parent;
             pointer = parent.head;
         }
@@ -84,7 +73,7 @@ public class LinkedList<T> implements Iterable<T>{
 
         @Override
         public X next() {
-            LLNode<X> pointerOld = pointer;
+            DoubleLLNode<X> pointerOld = pointer;
             pointer = pointer.next;
             return pointerOld.val();
         }
@@ -97,7 +86,7 @@ public class LinkedList<T> implements Iterable<T>{
 
     @Override
     public String toString() {
-        return "LinkedList{" +
+        return "DoubleLinkedList{" +
                 "head=" + head +
                 ", tail=" + tail +
                 ", size=" + size +
