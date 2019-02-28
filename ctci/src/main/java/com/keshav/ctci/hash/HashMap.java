@@ -8,7 +8,7 @@ import com.keshav.ctci.util.KVPair;
 public class HashMap<K, V> {
 
     private ArrayList<LinkedList<KVPair<K,V>>> data;
-    private  int length;
+    private int length;
     int size;
     private static int DEFAULT_LENGTH = 100;
 
@@ -28,6 +28,14 @@ public class HashMap<K, V> {
     public void put(K key, V value) {
         int index = key.hashCode()%length;
         KVPair<K,V> pair = new KVPair<K,V>(key, value);
+        LinkedList<KVPair<K,V>> list = data.get(index);
+        for (KVPair<K,V> kv : list) {
+            if (kv.key() == key){
+                kv.setValue(value);
+                size++;
+                return;
+            }
+        }
         data.get(index).add(pair);
         size++;
     }
