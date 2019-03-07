@@ -55,6 +55,17 @@ public class HashMap<K, V> {
         return size;
     }
 
+    public boolean isKeyPresent(K key){
+        if(key == null) return false;
+        int index = key.hashCode()%length;
+        LinkedList<KVPair<K,V>> list = data.get(index);
+        for (KVPair<K, V> p : list) {
+            if (p.key() == key)
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "HashMap{" +
