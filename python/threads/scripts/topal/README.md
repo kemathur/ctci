@@ -1,0 +1,6 @@
+"""
+Multi threading tutorial from:
+https://www.toptal.com/python/beginners-guide-to-concurrency-and-parallelism-in-python
+"""
+
+Running this Python threading example script on the same machine used earlier results in a download time of 4.1 seconds! That’s 4.7 times faster than the previous example. While this is much faster, it is worth mentioning that only one thread was executing at a time throughout this process due to the GIL. Therefore, this code is concurrent but not parallel. The reason it is still faster is because this is an IO bound task. The processor is hardly breaking a sweat while downloading these images, and the majority of the time is spent waiting for the network. This is why Python multithreading can provide a large speed increase. The processor can switch between the threads whenever one of them is ready to do some work. Using the threading module in Python or any other interpreted language with a GIL can actually result in reduced performance. If your code is performing a CPU bound task, such as decompressing gzip files, using the threading module will result in a slower execution time. For CPU bound tasks and truly parallel execution, we can use the multiprocessing module.

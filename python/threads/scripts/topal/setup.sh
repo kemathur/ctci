@@ -1,0 +1,2 @@
+export IMGUR_CLIENT_ID="b8c13aadd6f0a4a"
+echo $IMGUR_CLIENT_ID
