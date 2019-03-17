@@ -80,6 +80,47 @@ def q4(x):
     return larger
 
 
+"""
+Q6
+How many bit swaps needed to go from integer A->B.
+eg
+i/p:
+A = 29 [11101]
+B = 15 [01111]
+
+o/p:
+2
+"""
+def q6(a, b):
+    # Just count #1s in a^b
+    c = a^b
+    count = 0
+    
+    while c!=0:
+        x = c&1
+        count += x
+        c >>= 1
+
+    return count
+
+
+"""
+Q7
+swap odd and even bits.
+eg
+i/p: 001101
+o/p: 001110
+solution is somewhat non-obvious. we first mask odd bits and move them right.
+then take masking of even and move them left.
+then take their or.
+makes sense but masking odd and even is done using hexadecimal.
+"""
+def q7(a):
+    left = (a & 0xaaaaaaaa) >> 1
+    right = (a & 0x55555555) << 1
+    return left | right
+
+
 def main():
     x = int('100000000', 2)
     y = int('101', 2)
@@ -91,7 +132,10 @@ def main():
     assert (q3(x) == 2)
     assert (q3(y) == 3)
     assert (q4(0) == 0)
-    assert (bin(q4(y)) == '0b110')
+    # assert (bin(q4(y)) == '0b110')
+    assert q6(x, y) == 3 , "error: " + str(q6(x,y))
+    assert q6(29, 15) == 2, "error: " + str(q6(29, 15))
+    assert bin(q7(int('001101', 2))) == '0b1110' , "error: " + bin(q7(int('001101', 2)))
 
 
 if __name__ == '__main__':
