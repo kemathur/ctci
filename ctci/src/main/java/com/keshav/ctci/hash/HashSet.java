@@ -5,8 +5,10 @@ import com.keshav.ctci.list.LLNode;
 import com.keshav.ctci.list.LinkedList;
 import com.keshav.ctci.util.KVPair;
 
+import java.util.Iterator;
 
-public class HashSet<K> {
+
+public class HashSet<K> implements Set<K>, Iterable<K>{
 
     private ArrayList<LinkedList<K>> data;
     private int length;
@@ -26,6 +28,7 @@ public class HashSet<K> {
         }
     }
 
+    @Override
     public boolean isPresent(K key) {
         int index = key.hashCode()%length;
         LinkedList<K> list = data.get(index);
@@ -55,9 +58,55 @@ public class HashSet<K> {
                 '}';
     }
 
+    @Override
+    public Iterator<K> iterator() {
+        return new HashSetIterator<K>(this);
+    }
+
+    public class HashSetIterator<T> implements Iterator<T> {
+        private HashSet<T> parent;
+        Iterator<T> listIter;
+        int index;
+
+        public HashSetIterator(HashSet<T> parent) {
+            this.parent = parent;
+            this.index = 0;
+            this.listIter = (parent.data.get(0) != null ? parent.data.get(0).iterator() : null);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return hasNext(index, listIter);
+        }
+
+        private boolean hasNext(int index, Iterator<T> listIter) {
+            boolean val = (index < parent.length &&
+                                ((listIter != null && listIter.hasNext())
+                                        || hasNext(index+1,
+                                            (parent.data.get(index) != null
+                                                ? parent.data.get(index).iterator() : null))));
+            return val;
+        }
+
+        @Override
+        public T next() {
+            T elem = null;
+            if(index < parent.length) {
+                if(listIter != null && listIter.hasNext()) {
+                    elem = listIter.next();
+                }
+                else {
+                    index++;
+                    listIter = (parent.data.get(index) != null ? parent.data.get(index).iterator() : null);
+                    return next();
+                }
+            }
+            return elem;
+        }
+    }
 
     public static void main(String args[]){
-        HashSet<String> set = new HashSet<>();
+        HashSet<String> set = new HashSet<>(10);
         set.add("a");
         set.add("b");
         set.add("c");
@@ -66,5 +115,8 @@ public class HashSet<K> {
         System.out.println(set);
         System.out.println(set.isPresent("b"));
         System.out.println(set.size());
+        for (String v : set) {
+            System.out.println("priniting : " + v);
+        }
     }
 }
