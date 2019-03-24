@@ -3,6 +3,7 @@ package com.keshav.ctci.threads;
 import com.keshav.ctci.hash.HashMap;
 import com.keshav.ctci.list.ArrayList;
 import com.keshav.ctci.list.LinkedList;
+import com.keshav.ctci.util.KVPair;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -35,7 +36,12 @@ public class LockFactory {
     }
 
     private boolean hasCycle(HashMap<Integer, Boolean> touchedNodes) {
-        return true;
+
+        for (KVPair<Integer, Boolean> kv : touchedNodes) {
+
+        }
+
+        return false;
     }
 
     public boolean addToLockOrderTable(int id, int[] order) {

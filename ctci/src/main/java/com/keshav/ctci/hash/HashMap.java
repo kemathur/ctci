@@ -4,8 +4,10 @@ import com.keshav.ctci.list.ArrayList;
 import com.keshav.ctci.list.LinkedList;
 import com.keshav.ctci.util.KVPair;
 
+import java.util.Iterator;
 
-public class HashMap<K, V> {
+
+public class HashMap<K, V> implements Iterable<KVPair<K, V>>{
 
     private ArrayList<LinkedList<KVPair<K,V>>> data;
     private int length;
@@ -29,6 +31,7 @@ public class HashMap<K, V> {
         int index = key.hashCode()%length;
         KVPair<K,V> pair = new KVPair<K,V>(key, value);
         LinkedList<KVPair<K,V>> list = data.get(index);
+        // check if key already present
         for (KVPair<K,V> kv : list) {
             if (kv.key() == key){
                 kv.setValue(value);
@@ -74,6 +77,57 @@ public class HashMap<K, V> {
                 '}';
     }
 
+    @Override
+    public Iterator<KVPair<K, V>> iterator() {
+        return new HashMapIterator(this);
+    }
+
+    public class HashMapIterator implements Iterator<KVPair<K, V>> {
+        private HashMap<K, V> parent;
+        private int index;
+        private Iterator<KVPair<K, V>> llIterator;
+
+        private HashMapIterator(HashMap<K, V> parent) {
+            this.parent = parent;
+            index = 0;
+            llIterator = getLLIterator(0);
+        }
+
+        private Iterator<KVPair<K, V>> getLLIterator(int index) {
+            if (parent.data.get(index) != null) {
+                return parent.data.get(index).iterator();
+            }
+            return null;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return hasNext(index, llIterator);
+        }
+
+        private boolean hasNext(int index, Iterator<KVPair<K, V>> listIter) {
+            boolean val = (index < parent.length &&
+                    ((listIter != null && listIter.hasNext())
+                            || hasNext(index+1, getLLIterator(index+1))));
+            return val;
+        }
+
+        @Override
+        public KVPair<K, V> next() {
+            KVPair<K, V> elem = null;
+            if(index < parent.length) {
+                if(llIterator != null && llIterator.hasNext()) {
+                    elem = llIterator.next();
+                }
+                else {
+                    index++;
+                    llIterator = getLLIterator(index);
+                    return next();
+                }
+            }
+            return elem;
+        }
+    }
 
     public static void main(String args[]){
         HashMap<String, Integer> map = new HashMap<>();
@@ -84,5 +138,8 @@ public class HashMap<K, V> {
         System.out.println(map);
         System.out.println(map.get("b"));
         System.out.println(map.size());
+        for (KVPair<String, Integer> kv : map) {
+            System.out.println("(" + kv.key() + ", " + kv.value() + ")");
+        }
     }
 }
