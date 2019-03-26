@@ -38,7 +38,11 @@ public class LockFactory {
     private boolean hasCycle(HashMap<Integer, Boolean> touchedNodes) {
 
         for (KVPair<Integer, Boolean> kv : touchedNodes) {
-
+            if (!kv.value()) {
+                if(locks[kv.key()].hasCycle(touchedNodes)) {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -100,6 +104,10 @@ public class LockFactory {
 
         public void add(LockNode c) {
             children.add(c);
+        }
+
+        public boolean hasCycle(HashMap<Integer, Boolean> touchedNodes) {
+            return false;
         }
 
 //        public void remove(LockNode c) {
