@@ -30,6 +30,25 @@ public class LinkedList<T> implements Iterable<T>{
         tail = d;
     }
 
+    public void remove(T data) {
+        if (data == null || tail == null) return;
+        if (data == head.val()) {
+            head = head.next;
+            if(head == null) tail = null;
+            return;
+        }
+
+        LLNode p = head.next;
+        while (p.next != null) {
+            if (p.next == data) {
+                p.next = p.next.next;
+                break;
+            }
+            p = p.next;
+        }
+    }
+
+
     public T get(int index) {
         if(index >= size) return null;
 
@@ -107,5 +126,9 @@ public class LinkedList<T> implements Iterable<T>{
     @Override
     public Iterator<T> iterator() {
         return new LLIterator<T>(this);
+    }
+
+    public int size() {
+        return size;
     }
 }

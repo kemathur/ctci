@@ -17,7 +17,7 @@ public class LockFactory {
 
     private LockFactory() { }
 
-    public LockFactory(int n) {
+    private LockFactory(int n) {
         instance = new LockFactory();
         init(n);
     }
@@ -26,9 +26,14 @@ public class LockFactory {
         maxLocks = n;
         locks = new LockNode[n];
         for (int i=0; i<n; i++) {
-            locks[i] = new LockNode(i);
+            locks[i] = new LockNode(i, maxLocks);
         }
         lockOrderTable = new HashMap<>();
+    }
+
+    public static synchronized LockFactory initialize(int count) {
+        if (instance == null) instance = new LockFactory(count);
+        return instance;
     }
 
     public static LockFactory getInstance() {
@@ -36,7 +41,6 @@ public class LockFactory {
     }
 
     private boolean hasCycle(HashMap<Integer, Boolean> touchedNodes) {
-
         for (KVPair<Integer, Boolean> kv : touchedNodes) {
             if (!kv.value()) {
                 if(locks[kv.key()].hasCycle(touchedNodes)) {
@@ -48,7 +52,7 @@ public class LockFactory {
         return false;
     }
 
-    public boolean addToLockOrderTable(int id, int[] order) {
+    public synchronized boolean addToLockOrderTable(int id, int[] order) {
         HashMap<Integer, Boolean> touchedNodes = new HashMap<>();
         int n = order.length;
         // add all to touched nodes
@@ -68,7 +72,7 @@ public class LockFactory {
             for (int i=1; i<n; i++) {
                 LockNode prev = locks[order[i-1]];
                 LockNode curr = locks[order[i]];
-//                prev.remove(curr);
+                prev.remove(curr);
             }
             return false;
         }
@@ -80,39 +84,5 @@ public class LockFactory {
         }
 
         return true;
-    }
-
-
-    public class LockNode {
-        private int id;
-        private Lock lock;
-        private ArrayList<LockNode> children;
-
-        public LockNode(int i) {
-            id = i;
-            lock = new ReentrantLock();
-            children = new ArrayList<>();
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public Lock getLock() {
-            return lock;
-        }
-
-        public void add(LockNode c) {
-            children.add(c);
-        }
-
-        public boolean hasCycle(HashMap<Integer, Boolean> touchedNodes) {
-            return false;
-        }
-
-//        public void remove(LockNode c) {
-//            children.remove(c);
-//        }
-
     }
 }
