@@ -16,6 +16,7 @@ public class DoubleLinkedList<T> implements Iterable<T>{
         if (tail==null) {
             head = new DoubleLLNode<T>(data);
             tail = head;
+            size++;
             return;
         }
 
@@ -23,6 +24,22 @@ public class DoubleLinkedList<T> implements Iterable<T>{
         tail.next = d;
         d.prev = tail;
         tail = d;
+        size++;
+    }
+
+    public void remove(T data) {
+        if (data == null || tail == null) return;
+
+        DoubleLLNode p = head;
+        while (p != null) {
+            if (p.val() == data) {
+                if (p.prev != null) p.prev.next = p.next;
+                if (p.next != null) p.next.prev = p.prev;
+                size--;
+                break;
+            }
+            p = p.next;
+        }
     }
 
 
@@ -96,5 +113,26 @@ public class DoubleLinkedList<T> implements Iterable<T>{
     @Override
     public Iterator<T> iterator() {
         return new LLIterator<T>(this);
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public static void main(String args[]) {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        System.out.println("Size: " + list.size());
+        for (Integer x: list) {
+            System.out.println(x);
+        }
+        list.remove(3);
+        System.out.println("Size: " + list.size());
+        for (Integer x: list) {
+            System.out.println(x);
+        }
     }
 }

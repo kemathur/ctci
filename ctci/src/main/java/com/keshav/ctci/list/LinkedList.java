@@ -22,12 +22,14 @@ public class LinkedList<T> implements Iterable<T>{
         if (tail==null) {
             head = new LLNode<T>(data);
             tail = head;
+            size++;
             return;
         }
 
         LLNode<T> d = new LLNode<T>(data);
         tail.next = d;
         tail = d;
+        size++;
     }
 
     public void remove(T data) {
@@ -35,13 +37,15 @@ public class LinkedList<T> implements Iterable<T>{
         if (data == head.val()) {
             head = head.next;
             if(head == null) tail = null;
+            size--;
             return;
         }
 
-        LLNode p = head.next;
+        LLNode p = head;
         while (p.next != null) {
-            if (p.next == data) {
+            if (p.next.val() == data) {
                 p.next = p.next.next;
+                size--;
                 break;
             }
             p = p.next;
@@ -130,5 +134,22 @@ public class LinkedList<T> implements Iterable<T>{
 
     public int size() {
         return size;
+    }
+
+    public static void main(String args[]) {
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        System.out.println("Size: " + list.size());
+        for (Integer x: list) {
+            System.out.println(x);
+        }
+        list.remove(3);
+        System.out.println("Size: " + list.size());
+        for (Integer x: list) {
+            System.out.println(x);
+        }
     }
 }

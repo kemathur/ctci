@@ -19,8 +19,7 @@ public class StringBuilder {
         checkSize(size+s.length());
         char[] arr= s.toCharArray();
         for (char anArr : arr) {
-            data[size] = anArr;
-            size++;
+            data[size++] = anArr;
         }
     }
 

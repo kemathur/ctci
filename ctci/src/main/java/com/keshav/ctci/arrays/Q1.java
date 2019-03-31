@@ -14,7 +14,7 @@ public class Q1 {
 
     public static boolean unique(String s) {
         if(s==null) return false;
-        boolean[] arr = new boolean[s.length()];
+        boolean[] arr = new boolean[32];
 
         char[] cs = s.toCharArray();
         for (char c: cs) {

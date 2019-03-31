@@ -73,12 +73,23 @@ public class Cache<K,V> {
         while (p.next != null) {
             if(p.next == node) {
                 p.next = p.next.next;
+                break;
             }
+            p = p.next;
         }
 
         addToFront(node);
     }
 
+    @Override
+    public String toString() {
+        return "Cache{" +
+                "map=" + map + "\n" +
+                ", head=" + head + "\n" +
+                ", tail=" + tail + "\n" +
+                ", size=" + size + "\n" +
+                '}';
+    }
 
     public static void main(String args[]) {
         Cache<String, Integer> cache = new Cache<>();

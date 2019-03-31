@@ -30,7 +30,7 @@ public class ArrayList<T> {
     }
 
     private boolean checkIndex(int index) {
-        return !(index >= size);
+        return index < size;
     }
 
     private void checkSize() {
