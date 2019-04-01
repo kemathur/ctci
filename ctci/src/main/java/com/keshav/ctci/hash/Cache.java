@@ -11,6 +11,7 @@ import com.keshav.ctci.util.KVPair;
 *  LinkedList provides order of freshness. Deletes stale data after a certain size is hit.
 *  Semantics: head contains latest data, tail: oldest
 *  Size: size of the cache (max elements that it supports)
+*  TODO: need to keep fixed size and delete stale elements
 * */
 
 public class Cache<K,V> {

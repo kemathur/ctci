@@ -2,7 +2,7 @@ package com.keshav.ctci.list;
 
 
 /*
-*   Chapter 01
+*   Chapter 02
 *
 * */
 
@@ -10,7 +10,7 @@ public class Q4 {
 
     public Q4() {}
 
-    public static LinkedList partition(LinkedList<Integer> list, int p) {
+    public static LinkedList<Integer> partition(LinkedList<Integer> list, int p) {
         LLNode<Integer> head;
         LLNode<Integer> tail;
         LLNode<Integer> pointer = list.head();
@@ -44,7 +44,9 @@ public class Q4 {
         list.add(10);
         list.add(2);
         list.add(1);
-        System.out.println(partition(list, 5));
+        for (Integer x : partition(list, 5)) {
+            System.out.println(x);
+        }
     }
 
 }
