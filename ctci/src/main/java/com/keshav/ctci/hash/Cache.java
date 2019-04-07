@@ -39,18 +39,20 @@ public class Cache<K,V> {
             moveToFront(node);
             return;
         }
-        // add new 
+        // add new
         LLNode<KVPair<K, V>> node = new LLNode<>(new KVPair<K, V>(key, value));
+        // delete stale data
+        if (size == map.size()) {
+            deleteOldData();
+        }
         map.put(key, node);
         addToFront(node);
-        size++;
     }
 
-    private void addToFront(LLNode node) {
-        node.next = head;
-        head = node;
-        if (head.next == null) {
-            tail = head;
+    private void deleteOldData() {
+        if (head != null) {
+            map.remove(head.val().key());
+            head = head.next;
         }
     }
 
@@ -60,8 +62,21 @@ public class Cache<K,V> {
         }
 
         LLNode<KVPair<K,V>> node = map.get(key);
+        V val = node.val().value();
         moveToFront(node);
-        return node.val().value();
+        return val;
+    }
+
+    // Add to tail
+    private void addToFront(LLNode node) {
+        if (tail == null) {
+            tail = node;
+            head = tail;
+            return;
+        }
+        tail.next = node;
+        tail = node;
+        tail.next = null;
     }
 
     private void moveToFront(LLNode node) {
@@ -70,16 +85,16 @@ public class Cache<K,V> {
         }
 
         // delete node
-        LLNode p = head;
-        while (p.next != null) {
-            if(p.next == node) {
-                p.next = p.next.next;
-                break;
-            }
-            p = p.next;
+        if(node.next != null) {
+            LLNode temp = node.next;
+            if (tail == temp)
+                tail = node;
+            KVPair swap = (KVPair) node.val();
+            node.setVal(temp.val());
+            node.next = temp.next;
+            temp.setVal(swap);
+            addToFront(temp);
         }
-
-        addToFront(node);
     }
 
     @Override
@@ -93,13 +108,16 @@ public class Cache<K,V> {
     }
 
     public static void main(String args[]) {
-        Cache<String, Integer> cache = new Cache<>();
+        Cache<String, Integer> cache = new Cache<>(4);
         cache.add("a", 1);
         cache.add("b", 2);
         cache.add("c", 3);
         cache.add("d", 4);
 
         System.out.println(cache.get("c"));
+        System.out.println(cache);
+        cache.add("e", 5);
+        System.out.println(cache.get("a"));
         System.out.println(cache);
     }
     

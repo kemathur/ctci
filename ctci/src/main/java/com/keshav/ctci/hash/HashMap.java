@@ -4,6 +4,7 @@ import com.keshav.ctci.list.ArrayList;
 import com.keshav.ctci.list.LinkedList;
 import com.keshav.ctci.util.KVPair;
 
+
 import java.util.Iterator;
 
 
@@ -56,6 +57,17 @@ public class HashMap<K, V> implements Iterable<KVPair<K, V>>{
 
     public int size() {
         return size;
+    }
+
+    public void remove(K key) {
+        int index = key.hashCode()%length;
+        LinkedList<KVPair<K,V>> list = data.get(index);
+        for (KVPair<K, V> p : list) {
+            if (p.key() == key){
+                list.remove(p);
+                size--;
+            }
+        }
     }
 
     public boolean isKeyPresent(K key){
@@ -137,6 +149,12 @@ public class HashMap<K, V> implements Iterable<KVPair<K, V>>{
         map.put("d", 4);
         System.out.println(map);
         System.out.println(map.get("b"));
+        System.out.println(map.size());
+        for (KVPair<String, Integer> kv : map) {
+            System.out.println("(" + kv.key() + ", " + kv.value() + ")");
+        }
+        System.out.println("======================");
+        map.remove("b");
         System.out.println(map.size());
         for (KVPair<String, Integer> kv : map) {
             System.out.println("(" + kv.key() + ", " + kv.value() + ")");

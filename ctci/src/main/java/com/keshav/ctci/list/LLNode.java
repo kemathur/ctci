@@ -25,4 +25,14 @@ public class LLNode<T> {
                 ", next=" + next +
                 '}';
     }
+
+    public LLNode<T> clone() {
+        LLNode<T> clone = new LLNode<>(val);
+        clone.next = next;
+        return clone;
+    }
+
+    public void setVal(T val) {
+        this.val = val;
+    }
 }
