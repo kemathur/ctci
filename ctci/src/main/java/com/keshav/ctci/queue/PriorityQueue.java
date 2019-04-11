@@ -1,31 +1,25 @@
-package com.keshav.ctci.trees;
+package com.keshav.ctci.queue;
 
+import com.keshav.ctci.trees.BinaryHeap;
 
 import java.util.Arrays;
 
-/*
-*  Complete Binary tree where root is the minimum.
-*  Thus can be represented by an array.
-*  root       = v[0]
-*  left(i)    = v[2i + 1]
-*  right(i)   = v[2i + 2]
-*  parent(i)  = v[(i-1)/2]      Probably this is a floor.
-*/
-public class BinaryHeap{
-    private double v[];
+public class PriorityQueue<T extends Comparable<T>>{
+
+    private Object v[];
     private static int DEFAULT_SIZE = 20;
     private int filled =0;
 
-    public BinaryHeap() {
+    public PriorityQueue() {
         this(DEFAULT_SIZE);
     }
 
-    public  BinaryHeap(int size) {
-        v = new double[size];
+    public  PriorityQueue(int size) {
+        v = new Object[size];
     }
 
     private void swap(int x, int y){
-        double temp = v[x];
+        Object temp = v[x];
         v[x] = v[y];
         v[y] = temp;
     }
@@ -46,7 +40,7 @@ public class BinaryHeap{
         int i = filled;
         int p = parent(filled);
         while(p >= 0) {
-            if (v[p] > v[i]){
+            if (((T) v[p]).compareTo(((T) v[i])) > 0){
                 swap(p,i);
                 i = p;
                 p = parent(i);
@@ -68,16 +62,16 @@ public class BinaryHeap{
         filled++;
     }
 
-    
+
     /*
      *  O(1)
      *  return root.
      */
-    public double getMin(){
+    public T getMin(){
         if (filled > 0)
-            return v[0];
+            return (T) v[0];
         else
-            return Double.NEGATIVE_INFINITY;
+            return null;
     }
 
     // start from root. And bubble down till heap property satisfied.
@@ -86,11 +80,11 @@ public class BinaryHeap{
         int lc = left(i);
         int rc = right(i);
         while (lc < filled || rc < filled){
-            if(lc < filled && v[lc] < v[i]) {
+            if(lc < filled && ((T) v[lc]).compareTo((T) v[i]) < 0) {
                 swap(i, lc);
                 i = lc;
             }
-            else if(rc < filled && v[rc] < v[i]) {
+            else if(rc < filled && ((T) v[rc]).compareTo((T) v[i]) < 0) {
                 swap(i, rc);
                 i = rc;
             }
@@ -104,14 +98,14 @@ public class BinaryHeap{
      *  Replace root with last element.
      *  Bubble down.
      */
-    public double extractMin(){
+    public T extractMin(){
         if (filled == 0)
-            return Double.NEGATIVE_INFINITY;
-        double root = v[0];
+            return null;
+        Object root = v[0];
         v[0] = v[filled-1];
         filled--;
         bubbleDown();
-        return root;
+        return (T) root;
     }
 
     @Override
@@ -125,10 +119,10 @@ public class BinaryHeap{
     public static void main(String args[]) {
         BinaryHeap heap = new BinaryHeap();
         heap.insert(10);
-        heap.insert(13);                     
-        heap.insert(15);                     
-        heap.insert(40);                     
-        heap.insert(20);                     
+        heap.insert(13);
+        heap.insert(15);
+        heap.insert(40);
+        heap.insert(20);
         heap.insert(17);
         heap.insert(31);
         System.out.println(heap);
@@ -140,5 +134,4 @@ public class BinaryHeap{
         System.out.println("Min: " + min);
         System.out.println(heap);
     }
-
 }
