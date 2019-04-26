@@ -3,7 +3,7 @@ package com.keshav.ctci.list;
 
 import java.util.Arrays;
 
-public class ArrayList<T> {
+public class ArrayList<T> implements List<T>{
 
     private Object data[];
     public static final int DEFAULT_CAPACITY = 10;
@@ -16,6 +16,7 @@ public class ArrayList<T> {
         size = 0;
     }
 
+    @Override
     public void add(T e) {
         checkSize();
         data[size++] = e;

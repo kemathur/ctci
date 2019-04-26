@@ -13,6 +13,11 @@ public class StringBuilder {
         size = 0;
     }
 
+    private StringBuilder(char data[], int size, int capacity) {
+        this.data = data.clone();
+        this.size = size;
+        this.capacity = capacity;
+    }
 
     public void append(String s) {
         if(s == null) return;
@@ -33,6 +38,11 @@ public class StringBuilder {
             }
             data = newData;
         }
+    }
+
+    @Override
+    public StringBuilder clone() {
+        return new StringBuilder(data, size, capacity);
     }
 
     public int size() {
