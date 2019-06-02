@@ -31,7 +31,7 @@ public class ArrayList<T> implements List<T>{
     }
 
     private boolean checkIndex(int index) {
-        return index < size;
+        return index >=0 && index < size;
     }
 
     private void checkSize() {
@@ -47,6 +47,19 @@ public class ArrayList<T> implements List<T>{
 
     public int size(){
         return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size > 0;
+    }
+
+    @Override
+    public boolean contains(T a) {
+        for (int i=0; i<size; i++){
+            if(data[i].equals(a)) return true;
+        }
+        return false;
     }
 
     Object[] getData() {
