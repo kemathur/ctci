@@ -2,6 +2,9 @@ package com.keshav.ctci.trees;
 
 
 import com.keshav.ctci.hash.HashMap;
+import com.keshav.ctci.list.StringBuilder;
+import com.keshav.ctci.queue.Stack;
+import com.keshav.ctci.util.KVPair;
 
 public class Trie<T> {
     private TrieNode root;
@@ -43,6 +46,52 @@ public class Trie<T> {
             }
             return null;
         }
+
+        public T delete(String s, Stack<Character> stack) {
+            if (s.equals("")) return null;
+            char x = s.charAt(0);
+            TrieNode child = childMap.get(x);
+            if (child == null) return null;
+            T ret = null;
+            if (s.length() > 1){
+                ret = childMap.get(x).delete(s.substring(1), stack);
+                Character ch = stack.pop();
+                if (ch != null) {
+                    TrieNode chx = childMap.get(ch);
+                    if (chx.childMap.size() == 0 && chx.val == null) {
+                        childMap.remove(ch);
+                        stack.push(c);
+                    }
+                }
+            }
+            else if (child.val != null) {
+                ret = child.val;
+                child.val = null;
+                if (child.childMap.size() == 0) {
+                    childMap.remove(x);
+                    stack.push(c);
+                }
+            }
+            return ret;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("TrieNode{");
+            builder.append("c=");
+            builder.append(String.valueOf(c));
+            builder.append(", val=");
+            builder.append(String.valueOf(val));
+//            builder.append("\n \t");
+            builder.append(", childMap=");
+            for (KVPair<Character, TrieNode> kv : childMap) {
+                builder.append("(" + kv.key() + ", " + kv.value() + ")");
+            }
+//            builder.append("\n");
+            builder.append("}");
+            return  builder.toString();
+        }
     }
 
     public void insert(char c) {
@@ -57,6 +106,18 @@ public class Trie<T> {
         return root.get(s);
     }
 
+    public T delete(String s) {
+        Stack<Character> stack = new Stack<>();
+        return root.delete(s, stack);
+    }
+
+    @Override
+    public String toString() {
+        return "Trie{" +
+                "root=" + root +
+                '}';
+    }
+
     public static void main(String args[]) {
         Trie<Integer> t = new Trie<>();
         t.put("abc", 0);
@@ -69,20 +130,14 @@ public class Trie<T> {
         System.out.println(t.get("a"));
         System.out.println(t.get("abc"));
         System.out.println(t.get("abf"));
+        System.out.println(t.delete("a"));
+        System.out.println(t.delete("abc"));
+        System.out.println(t.delete("abb"));
+        System.out.println(t.delete("abd")); 
+        // System.out.println(t.delete("abe"));
+        System.out.println(t.delete("abc"));
+        System.out.println(t.get("abe"));
+        System.out.println(t.get("abc"));
+        System.out.println(t);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
