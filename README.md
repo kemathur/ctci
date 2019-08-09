@@ -17,9 +17,29 @@ These are the simple implementations of commonly used datastructures:
     * [Graph AL Node](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/trees/NodeAL.java)
     * [Graph](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/trees/GraphAL.java)
 * Hashing based DS
-    * [GitHub](http://github.com)
-    * [GitHub](http://github.com)
+    * [HashMap](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/hash/HashMap.java)
+    * [HashSet](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/hash/HashSet.java)
+    * [Cache](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/hash/Cache.java)
+    * [LinkedHashMap](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/hash/LinkedHashMap.java)
+* List Type DS
+    * [ArrayList](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/list/ArrayList.java)
+    * [LinkedList](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/list/LinkedList.java)
+    * [LL Node](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/list/LLNode.java)
+    * [StringBuilder](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/list/StringBuilder.java)
+* Stacks and Queues
+    * [Stack](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/queue/Stack.java)
+    * [MinStack](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/queue/MinStack.java)
+    * [Queue](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/queue/Queue.java)
+    * [PriorityQueue](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/queue/PriorityQueue.java)
 
 
 
 ## `Common Algorithms`
+
+* Sorting
+    * [Bubble Sort](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/sorting/BubbleSort.java)
+    * [Insertion Sort](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/sorting/InsertionSort.java)
+    * [Merge Sort](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/sorting/MergeSort.java)
+    * [Quick Sort](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/sorting/QuickSort.java)
+    * [Selection Sort](https://github.com/kemathur/ctci/blob/master/ctci/src/main/java/com/keshav/ctci/sorting/SelectionSort.java)
+    
